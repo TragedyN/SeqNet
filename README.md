@@ -1,6 +1,10 @@
-<div align="center">
-<img src="doc/title.jpg" width="300" height="100" alt="图片名称"/>
-</div>
+
+
+python train.py --cfg ./exp_cuhk/config.yaml --eval --ckpt ./exp_cuhk/epoch_19.pth
+
+python train.py --cfg configs/cuhk_sysu.yaml
+
+nohup python -u train.py > nohup_os.out 2>&1 &
 
 This repository hosts the source code of our paper: [[AAAI 2021]Sequential End-to-end Network for Efficient Person Search](https://arxiv.org/abs/2103.10148). SeqNet achieves the **state-of-the-art** performance on two widely used benchmarks and runs at **11.5 FPS** on a single GPU. You can find a brief Chinese introduction at [zhihu](https://zhuanlan.zhihu.com/p/358152127).
 

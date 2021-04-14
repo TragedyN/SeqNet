@@ -6,7 +6,7 @@ from sklearn.metrics import average_precision_score
 
 from utils.km import run_kuhn_munkres
 from utils.utils import write_json
-
+import time
 
 def _compute_iou(a, b):
     x1 = max(a[0], b[0])
@@ -228,6 +228,7 @@ def eval_search_cuhk(
                     if indx_i == 0:
                         sim[indx_j] = max_val
                         break
+
         for gallery_imname, sim in name2sim.items():
             gt = name2gt[gallery_imname]
             det, feat_g = name_to_det_feat[gallery_imname]

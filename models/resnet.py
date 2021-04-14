@@ -25,18 +25,20 @@ class Backbone(nn.Sequential):
     def forward(self, x):
         # using the forward method from nn.Sequential
         feat = super(Backbone, self).forward(x)
+        #print("bbone feat.shape",feat.shape)
         return OrderedDict([["feat_res4", feat]])
 
 
 class Res5Head(nn.Sequential):
     def __init__(self, resnet):
         super(Res5Head, self).__init__(OrderedDict([["layer4", resnet.layer4]]))  # res5
-        self.out_channels = [1024, 2048]
+        self.out_channels = [1024, 1024]
 
     def forward(self, x):
         feat = super(Res5Head, self).forward(x)
         x = F.adaptive_max_pool2d(x, 1)
         feat = F.adaptive_max_pool2d(feat, 1)
+       # print("feat_res5 feat.shape", feat.shape)
         return OrderedDict([["feat_res4", x], ["feat_res5", feat]])
 
 

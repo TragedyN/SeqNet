@@ -19,7 +19,7 @@ _C.INPUT.MAX_SIZE = 1500
 # _C.INPUT.ASPECT_RATIO_GROUPING_TRAIN = False
 
 # Number of images per batch
-_C.INPUT.BATCH_SIZE_TRAIN = 5
+_C.INPUT.BATCH_SIZE_TRAIN = 2
 _C.INPUT.BATCH_SIZE_TEST = 1
 
 # Number of data loading threads
@@ -33,7 +33,7 @@ _C.SOLVER = CN()
 _C.SOLVER.MAX_EPOCHS = 20
 
 # Learning rate settings
-_C.SOLVER.BASE_LR = 0.003
+_C.SOLVER.BASE_LR = 0.0012
 
 # TODO: add config option WARMUP_EPOCHS
 _C.SOLVER.WARMUP_FACTOR = 1.0 / 1000
@@ -140,7 +140,7 @@ _C.DISP_PERIOD = 10
 # Whether to use tensorboard for visualization
 _C.TF_BOARD = True
 # The device loading the model
-_C.DEVICE = "cuda"
+_C.DEVICE = "cuda:3"
 # Set seed to negative to fully randomize everything
 _C.SEED = 1
 # Directory where output files are written

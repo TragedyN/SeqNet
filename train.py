@@ -9,14 +9,14 @@ import torch.utils.data
 from datasets import build_test_loader, build_train_loader
 from defaults import get_default_cfg
 from engine import evaluate_performance, train_one_epoch
-from models.seqnet import SeqNet
+from models.seqnet_os import SeqNet
 from utils.utils import mkdir, resume_from_ckpt, save_on_master, set_random_seed
 
 
 def main(args):
     cfg = get_default_cfg()
-    if args.cfg_file:
-        cfg.merge_from_file(args.cfg_file)
+
+    cfg.merge_from_file('/home/lh/project/SeqNet/exp_cuhk/config.yaml')
     cfg.merge_from_list(args.opts)
     cfg.freeze()
 

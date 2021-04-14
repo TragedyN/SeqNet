@@ -1,11 +1,11 @@
 import math
 import sys
 from copy import deepcopy
-
+import numpy as np
 import torch
 from torch.nn.utils import clip_grad_norm_
 from tqdm import tqdm
-
+import time
 from eval_func import eval_detection, eval_search_cuhk, eval_search_prw
 from utils.utils import MetricLogger, SmoothedValue, mkdir, reduce_dict, warmup_lr_scheduler
 
@@ -88,10 +88,13 @@ def evaluate_performance(
         query_box_feats = eval_cache["query_box_feats"]
     else:
         gallery_dets, gallery_feats = [], []
+        fps_list = []
         for images, targets in tqdm(gallery_loader, ncols=0):
             images, targets = to_device(images, targets, device)
             if not use_gt:
+                s = time.time()
                 outputs = model(images)
+                fps_list.append(1.0/(time.time() - s))
             else:
                 boxes = targets[0]["boxes"]
                 n_boxes = boxes.size(0)
@@ -110,6 +113,7 @@ def evaluate_performance(
                 gallery_dets.append(box_w_scores.cpu().numpy())
                 gallery_feats.append(output["embeddings"].cpu().numpy())
 
+        print("fps",np.mean(fps_list))
         # regarding query image as gallery to detect all people
         # i.e. query person + surrounding people (context information)
         query_dets, query_feats = [], []
